@@ -1,8 +1,10 @@
+import { Box } from '@mui/material';
+
 const App = () => {
   return (
-    <div className="App">
-      <h1>Init Proyect</h1>
-    </div>
+    <Box>
+      Init proyect
+    </Box>
   );
 };
 
