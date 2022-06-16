@@ -6,9 +6,10 @@ import Form from './components/Form';
 const App = () => {
   return (
     <Layout>
-      {location.pathname === '/' && <TableProyects />}
       <Routes>
-        <Route path="/create" element={<Form />} />
+        <Route exact path="/" element={<TableProyects />} />
+        <Route exact path="/create" element={<Form />} />
+        <Route exact path="/edit" element={<Form />} />
       </Routes>
     </Layout>
   );

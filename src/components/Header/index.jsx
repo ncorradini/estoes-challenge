@@ -1,4 +1,5 @@
 import { Box, Container, Typography, Button } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 const Header = () => {
   return (
@@ -33,24 +34,28 @@ const Header = () => {
             fontSize: '18px',
             width: '100%',
           }}>
-            My Proyects
+            <Link to="/" style={{ color: '#262626' }}>
+              My Proyects
+            </Link>
           </Typography>
           <Box sx={{
             width: '100%',
             display: 'flex',
             justifyContent: 'flex-end',
           }}>
-            <Button
-              variant="contained"
-              disableElevation
-              sx={{
-                background: '#f5222d',
-                height: '35px',
-                fontSize: '12px',
-                fontWeight: 400,
-              }}>
-              + Add proyect
-            </Button>
+            <Link to="/create" style={{ color: '#fff' }}>
+              <Button
+                variant="contained"
+                disableElevation
+                sx={{
+                  background: '#f5222d',
+                  height: '35px',
+                  fontSize: '12px',
+                  fontWeight: 400,
+                }}>
+                + Add proyect
+              </Button>
+            </Link>
           </Box>
         </Container>
       </Box>

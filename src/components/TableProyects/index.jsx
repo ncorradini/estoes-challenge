@@ -1,54 +1,55 @@
 import {
+  Box,
   Table,
   TableHead,
   TableBody,
   TableCell,
   TableRow,
 } from '@mui/material';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import RowProject from './RowProject';
 
 const TableProyects = () => {
-  function createData (name, calories, fat, carbs, protein) {
-    return { name, calories, fat, carbs, protein };
-  }
+  const { list } = useSelector(state => state.projects);
 
-  const rows = [
-    createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-    createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  ];
+  useEffect(() => {}, [list]);
 
   return (
-    <Table sx={{
-      mt: '40px',
-      mx: 'auto',
+    <Box sx={{
+      display: 'flex',
+      flexWrap: 'wrap',
       width: '100%',
-      boxShadow: '0px 3px 5px 0px rgba(148,148,148,0.4)',
     }}>
-      <TableHead sx={{ background: '#fafafa' }}>
-        <TableRow>
-          <TableCell>Project info</TableCell>
-          <TableCell align="left">Project Manager</TableCell>
-          <TableCell align="left">Assigned to</TableCell>
-          <TableCell align="left">Status</TableCell>
-          <TableCell align="left">Action</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody sx={{ background: '#fff' }}>
-        {rows.map((row) => (
-          <TableRow
-            key={row.name}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
-            <TableCell component="th" scope="row">
-              {row.name}
-            </TableCell>
-            <TableCell align="left">{row.calories}</TableCell>
-            <TableCell align="left">{row.fat}</TableCell>
-            <TableCell align="left">{row.carbs}</TableCell>
-            <TableCell align="left">{row.protein}</TableCell>
+      <Table sx={{
+        mt: '40px',
+        boxShadow: '0px 3px 5px 0px rgba(148,148,148,0.4)',
+      }}>
+        <TableHead sx={{ background: '#fafafa' }}>
+          <TableRow>
+            <TableCell>Project info</TableCell>
+            <TableCell align="left">Project Manager</TableCell>
+            <TableCell align="left">Assigned to</TableCell>
+            <TableCell align="left">Status</TableCell>
+            <TableCell align="left">Action</TableCell>
           </TableRow>
-        ))}
-      </TableBody>
-    </Table>
+        </TableHead>
+        <TableBody sx={{ background: '#fff' }}>
+          {list.map(project =>
+            <RowProject
+              key={project.id}
+              project={project}
+            />,
+          ) }
+        </TableBody>
+      </Table>
+
+      {list.length <= 0 && <p style={{
+        width: '100%',
+        textAlign: 'center',
+        padding: '50px',
+      }}>Aún no hay ningún proyecto cargado</p>}
+    </Box>
   );
 };
 

@@ -1,15 +1,20 @@
 import { useRoutes, Navigate } from 'react-router-dom';
-import App from '../App';
 import Form from '../components/Form';
+import TableProyects from '../components/TableProyects';
 
 const Routing = () => {
   const routes = useRoutes([
     {
       path: '/',
-      element: <App />,
-      children: [
-        { path: '/create', element: <Form /> },
-      ],
+      element: <TableProyects />,
+    },
+    {
+      path: '/create',
+      element: <Form />,
+    },
+    {
+      path: '/edit',
+      element: <Form />,
     },
     { path: '*', element: <Navigate to="/" /> },
   ]);
