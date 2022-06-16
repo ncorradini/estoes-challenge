@@ -1,13 +1,13 @@
 import { Typography } from '@mui/material';
 
-const SelectInput = ({ title, name, handleChange }) => {
+const SelectInput = ({ title, name, handleChange, value }) => {
   return (
     <>
       <Typography sx={{ mt: '20px', fontSize: '14px' }}>
         {title}
       </Typography>
       <select
-        defaultValue="default"
+        defaultValue={value}
         name={name}
         onChange={handleChange}
         style={{
