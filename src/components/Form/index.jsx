@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useLocation, useNavigate } from 'react-router-dom';
 // Components JSX
 import { Box, Button } from '@mui/material';
 import SelectInput from './Inputs/SelectInput';
@@ -11,7 +13,10 @@ import { opStatus } from './options/opStatus';
 import { handleSubmit } from './tools/handleSubmit';
 
 const Form = () => {
-  const [inputs, setInputs] = useState(initialState);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const [inputs, setInputs] = useState(initialState());
 
   const handleChange = e => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
@@ -22,9 +27,10 @@ const Form = () => {
       width: '600px',
       background: '#fff',
       mt: '40px',
+      mb: '150px',
     }}>
       <form
-        onSubmit={e => handleSubmit(e, inputs)}
+        onSubmit={e => handleSubmit(e, inputs, navigate, dispatch, location)}
         style={{ padding: '20px 40px' }}
       >
         <TextInput

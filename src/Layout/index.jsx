@@ -1,6 +1,7 @@
 import Header from '../components/Header';
 import { Container, ThemeProvider } from '@mui/material';
 import theme from './theme';
+import Footer from '../components/Footer';
 
 const Layout = (props) => {
   return (
@@ -12,7 +13,7 @@ const Layout = (props) => {
       }}>
         {props.children}
       </Container>
-      {/* COLOCAR FOOTER CON MI FIRMA */}
+      <Footer />
     </ThemeProvider>
   );
 };

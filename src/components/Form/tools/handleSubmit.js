@@ -1,12 +1,7 @@
 import { addProjectList, updateProjectList } from '../../../store/slices/projects';
 import { viewAlert } from '../../../services/viewAlert';
-import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
 
-const navigate = useNavigate();
-const dispatch = useDispatch();
-
-export const handleSubmit = (e, inputs) => {
+export const handleSubmit = (e, inputs, navigate, dispatch, location) => {
   e.preventDefault();
 
   if (inputs.projectName === '' ||
