@@ -5,15 +5,19 @@ const RowProject = ({ project }) => {
   return (
     <TableRow
       key={project.id}
-      sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+      sx={{
+        '&:last-child td, &:last-child th': { border: 0 },
+        display: { md: 'table-row', xs: 'none' },
+      }}
     >
       <TableCell component="th" scope="row">
-        <Box sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          fontSize: '15px',
-          color: '#595959',
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            fontSize: '15px',
+            color: '#595959',
+          }}>
           {project.projectName}
           <span style={{
             color: 'gray',
@@ -23,11 +27,12 @@ const RowProject = ({ project }) => {
       </TableCell>
 
       <TableCell align="left">
-        <Box sx={{
-          display: 'flex',
-          alignItems: 'center',
-          color: '#595959',
-        }}>
+        <Box
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            color: '#595959',
+          }}>
           <Avatar sx={{
             width: 25,
             height: 25,

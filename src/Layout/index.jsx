@@ -6,7 +6,7 @@ const Layout = (props) => {
   return (
     <ThemeProvider theme={theme}>
       <Header />
-      <Container maxWidth="lg" sx={{
+      <Container sx={{
         display: 'flex',
         justifyContent: 'center',
       }}>
@@ -14,7 +14,6 @@ const Layout = (props) => {
       </Container>
       {/* COLOCAR FOOTER CON MI FIRMA */}
     </ThemeProvider>
-
   );
 };
 

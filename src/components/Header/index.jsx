@@ -2,6 +2,7 @@ import { Box, Container } from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import NavBarActions from './NavBarActions';
 import NavBarHome from './NavBarHome';
+import EstoEsLogo from '../../assets/images/logo.png';
 
 const Header = () => {
   const location = useLocation();
@@ -19,7 +20,11 @@ const Header = () => {
         borderBottom: '1.5px solid #ececec',
       }}>
         <Container maxWidth="lg">
-          Esto Es
+          <img
+            src={EstoEsLogo}
+            alt="Esto Es Logo"
+            style={{ width: '50px' }}
+          />
         </Container>
       </Box>
       <Box sx={{

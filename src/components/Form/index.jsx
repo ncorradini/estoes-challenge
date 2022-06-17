@@ -1,61 +1,20 @@
-import { Box, Button } from '@mui/material';
 import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { viewAlert } from '../../services/viewAlert';
-import { addProjectList, updateProjectList } from '../../store/slices/projects';
+// Components JSX
+import { Box, Button } from '@mui/material';
 import SelectInput from './Inputs/SelectInput';
 import TextInput from './Inputs/TextInput';
-// options selects
+// Functions and consts
+import { initialState } from './tools/initialState';
 import { opAssigned } from './options/opAssigned';
 import { opProjectManager } from './options/opProjectManager';
 import { opStatus } from './options/opStatus';
+import { handleSubmit } from './tools/handleSubmit';
 
 const Form = () => {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const position = location.state?.id;
-  const { list } = useSelector(state => state.projects);
-
-  const date = new Date();
-  const creation = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-
-  const initialState = {
-    id: location.state?.id || `${list.length}`,
-    creationDate: list[position]?.creationDate || creation,
-    projectName: list[position]?.projectName || '',
-    description: list[position]?.description || '',
-    projectManager: list[position]?.projectManager || 'default',
-    assigned: list[position]?.assigned || 'default',
-    status: list[position]?.status || 'default',
-  };
-
-  const dispatch = useDispatch();
-
   const [inputs, setInputs] = useState(initialState);
 
   const handleChange = e => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = e => {
-    e.preventDefault();
-
-    if (inputs.projectName === '' ||
-    inputs.description === '' ||
-    inputs.projectManager === 'default' ||
-    inputs.assigned === 'default' ||
-    inputs.status === 'default') return alert('Campos incompletos');
-
-    if (location.state) {
-      dispatch(updateProjectList(inputs));
-      viewAlert('success', 'Proyecto editado correctamente!');
-      navigate('/');
-    } else {
-      dispatch(addProjectList(inputs));
-      viewAlert('success', 'Proyecto creado correctamente!');
-      navigate('/');
-    }
   };
 
   return (
@@ -65,7 +24,7 @@ const Form = () => {
       mt: '40px',
     }}>
       <form
-        onSubmit={handleSubmit}
+        onSubmit={e => handleSubmit(e, inputs)}
         style={{ padding: '20px 40px' }}
       >
         <TextInput

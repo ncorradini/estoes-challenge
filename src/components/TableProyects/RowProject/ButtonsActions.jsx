@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { deleteProjectList } from '../../store/slices/projects';
+import { deleteProjectList } from '../../../store/slices/projects';
 import { TableCell, IconButton, Menu, MenuItem } from '@mui/material';
+import { viewAlert } from '../../../services/viewAlert';
 // Icons
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
-import { viewAlert } from '../../services/viewAlert';
 
 const ButtonsActions = ({ project }) => {
   const dispatch = useDispatch();
