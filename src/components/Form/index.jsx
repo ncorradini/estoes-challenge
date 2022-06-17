@@ -5,14 +5,22 @@ import { useLocation } from 'react-router-dom';
 import { addProjectList, updateProjectList } from '../../store/slices/projects';
 import SelectInput from './Inputs/SelectInput';
 import TextInput from './Inputs/TextInput';
+// options selects
+import { opAssigned } from './options/opAssigned';
+import { opProjectManager } from './options/opProjectManager';
+import { opStatus } from './options/opStatus';
 
 const Form = () => {
   const location = useLocation();
   const position = location.state?.id;
   const { list } = useSelector(state => state.projects);
 
+  const date = new Date();
+  const creation = `${date.getDate()}/${date.getMonth()}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
+
   const initialState = {
     id: location.state?.id || `${list.length}`,
+    creationDate: list[position]?.creationDate || creation,
     projectName: list[position]?.projectName || '',
     description: list[position]?.description || '',
     projectManager: list[position]?.projectManager || 'default',
@@ -33,9 +41,9 @@ const Form = () => {
 
     if (inputs.projectName === '' ||
     inputs.description === '' ||
-    inputs.projectManager === '' ||
-    inputs.assigned === '' ||
-    inputs.status === '') return alert('Campos incompletos');
+    inputs.projectManager === 'default' ||
+    inputs.assigned === 'default' ||
+    inputs.status === 'default') return alert('Campos incompletos');
 
     if (location.state) {
       dispatch(updateProjectList(inputs));
@@ -52,7 +60,7 @@ const Form = () => {
     }}>
       <form
         onSubmit={handleSubmit}
-        style={{ padding: '30px' }}
+        style={{ padding: '20px 40px' }}
       >
         <TextInput
           name="projectName"
@@ -73,20 +81,39 @@ const Form = () => {
           name="projectManager"
           value={inputs.projectManager}
           handleChange={handleChange}
+          options={opProjectManager}
         />
         <SelectInput
           title="Assigned to"
           name="assigned"
           value={inputs.assigned}
           handleChange={handleChange}
+          options={opAssigned}
         />
         <SelectInput
           title="Status"
           name="status"
           value={inputs.status}
           handleChange={handleChange}
+          options={opStatus}
         />
-        <Button type="submit">Create proyect</Button>
+        <Button
+          type="submit"
+          variant="contained"
+          disableElevation
+          sx={{
+            mt: '30px',
+            background: '#f5222d',
+            height: '35px',
+            fontSize: '12px',
+            fontWeight: 400,
+            '&:hover': {
+              background: '#d41c25',
+            },
+          }}
+        >
+          {location.state ? 'Save changes' : 'Create proyect'}
+        </Button>
       </form>
     </Box>
   );
