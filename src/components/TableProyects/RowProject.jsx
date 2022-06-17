@@ -1,67 +1,69 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import MoreIcon from '@mui/icons-material/MoreVert';
-import {
-  TableCell,
-  TableRow,
-  IconButton,
-  Menu,
-  MenuItem,
-} from '@mui/material';
-import { useDispatch } from 'react-redux';
-import { deleteProjectList } from '../../store/slices/projects';
+import { TableCell, TableRow, Avatar, Box } from '@mui/material';
+import ButtonsActions from './ButtonsActions';
 
 const RowProject = ({ project }) => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const handleEdit = e => {
-    navigate('/edit', {
-      state: { id: e.target.id },
-    });
-  };
-
-  const handleDelete = e => {
-    dispatch(deleteProjectList(e.target.id));
-  };
-
   return (
     <TableRow
       key={project.id}
       sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
     >
       <TableCell component="th" scope="row">
-        {project.projectName}
+        <Box sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          fontSize: '15px',
+          color: '#595959',
+        }}>
+          {project.projectName}
+          <span style={{
+            color: 'gray',
+            fontSize: '12px',
+          }}>Creation date: {project.creationDate}</span>
+        </Box>
       </TableCell>
-      <TableCell align="left">{project.projectManager}</TableCell>
-      <TableCell align="left">{project.assigned}</TableCell>
-      <TableCell align="left">{project.status}</TableCell>
+
       <TableCell align="left">
-        <IconButton onClick={handleClick}>
-          <MoreIcon />
-        </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          PaperProps={{ style: { width: '20ch' } }}
-        >
-          <MenuItem key="edit" id={project.id} onClick={handleEdit}>
-            Edit
-          </MenuItem>
-          <MenuItem key="delete" id={project.id} onClick={handleDelete}>
-            Delete
-          </MenuItem>
-        </Menu>
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          color: '#595959',
+        }}>
+          <Avatar sx={{
+            width: 25,
+            height: 25,
+            mr: '8px',
+            background: '#ffe0b2',
+            color: '#d15d19',
+            fontSize: '10px',
+          }}>WC</Avatar>
+          {project.projectManager}
+        </Box>
       </TableCell>
+
+      <TableCell align="left">
+        <Box sx={{
+          display: 'flex',
+          alignItems: 'center',
+          color: '#595959',
+        }}>
+          <Avatar sx={{ width: 25, height: 25, mr: '8px' }} />
+          {project.assigned}
+        </Box>
+      </TableCell>
+
+      <TableCell align="left">
+        <span style={{
+          background: '#f5f5f5',
+          padding: '5px 8px',
+          border: '1.5px solid #dcdcdc',
+          borderRadius: '5px',
+          color: '#565555',
+        }}>
+          {project.status}
+        </span>
+      </TableCell>
+
+      <ButtonsActions project={project} />
     </TableRow>
   );
 };
