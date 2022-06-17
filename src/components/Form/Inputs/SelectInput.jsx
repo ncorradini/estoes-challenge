@@ -1,9 +1,9 @@
 import { Typography } from '@mui/material';
 
-const SelectInput = ({ title, name, handleChange, value }) => {
+const SelectInput = ({ title, name, handleChange, value, options }) => {
   return (
     <>
-      <Typography sx={{ mt: '20px', fontSize: '14px' }}>
+      <Typography sx={{ mt: '20px', mb: '5px', fontSize: '14px' }}>
         {title}
       </Typography>
       <select
@@ -14,9 +14,17 @@ const SelectInput = ({ title, name, handleChange, value }) => {
           width: '100%',
           padding: '8px',
           fontSize: '16px',
+          color: '#575757',
         }}>
-        <option value="default" disabled>Select a person</option>
-        <option>adasd</option>
+        {name === 'status'
+          ? <option value="default" disabled>Select status</option>
+          : <option value="default" disabled>Select a person</option>
+        }
+        {options.map(option =>
+          <option key={option}>
+            {option}
+          </option>,
+        )}
       </select>
     </>
   );

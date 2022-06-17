@@ -3,7 +3,7 @@ import { Typography } from '@mui/material';
 const TextInput = ({ inputs, handleChange, title, name, value }) => {
   return (
     <>
-      <Typography sx={{ fontSize: '14px' }}>{title}</Typography>
+      <Typography sx={{ mt: '20px', mb: '5px', fontSize: '14px' }}>{title}</Typography>
       <input
         type="text"
         name={name}
@@ -15,6 +15,7 @@ const TextInput = ({ inputs, handleChange, title, name, value }) => {
           boxSizing: 'border-box',
           overflow: 'hidden',
           fontSize: '16px',
+          color: '#575757',
         }} />
     </>
   );
