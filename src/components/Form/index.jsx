@@ -1,7 +1,8 @@
 import { Box, Button } from '@mui/material';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { viewAlert } from '../../services/viewAlert';
 import { addProjectList, updateProjectList } from '../../store/slices/projects';
 import SelectInput from './Inputs/SelectInput';
 import TextInput from './Inputs/TextInput';
@@ -11,6 +12,7 @@ import { opProjectManager } from './options/opProjectManager';
 import { opStatus } from './options/opStatus';
 
 const Form = () => {
+  const navigate = useNavigate();
   const location = useLocation();
   const position = location.state?.id;
   const { list } = useSelector(state => state.projects);
@@ -47,8 +49,12 @@ const Form = () => {
 
     if (location.state) {
       dispatch(updateProjectList(inputs));
+      viewAlert('success', 'Proyecto editado correctamente!');
+      navigate('/');
     } else {
       dispatch(addProjectList(inputs));
+      viewAlert('success', 'Proyecto creado correctamente!');
+      navigate('/');
     }
   };
 

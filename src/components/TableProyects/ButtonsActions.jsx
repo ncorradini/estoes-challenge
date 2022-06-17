@@ -7,6 +7,7 @@ import { TableCell, IconButton, Menu, MenuItem } from '@mui/material';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import DeleteOutlinedIcon from '@mui/icons-material/DeleteOutlined';
 import ModeEditOutlineOutlinedIcon from '@mui/icons-material/ModeEditOutlineOutlined';
+import { viewAlert } from '../../services/viewAlert';
 
 const ButtonsActions = ({ project }) => {
   const dispatch = useDispatch();
@@ -23,7 +24,11 @@ const ButtonsActions = ({ project }) => {
     });
   };
 
-  const handleDelete = e => dispatch(deleteProjectList(e.target.id));
+  const handleDelete = async e => {
+    handleClose();
+    const confirm = await viewAlert('confirm', '¿Seguro deseas borrar el proyecto?');
+    if (confirm) dispatch(deleteProjectList(e.target.id));
+  };
 
   return (
     <TableCell align="left">
