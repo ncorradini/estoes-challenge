@@ -1,15 +1,20 @@
 import Header from '../components/Header';
-import { Container } from '@mui/material';
+import { Container, ThemeProvider } from '@mui/material';
+import theme from './theme';
 
 const Layout = (props) => {
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <Header />
-      <Container maxWidth="lg">
+      <Container maxWidth="lg" sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}>
         {props.children}
       </Container>
       {/* COLOCAR FOOTER CON MI FIRMA */}
-    </>
+    </ThemeProvider>
+
   );
 };
 
