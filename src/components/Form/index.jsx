@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 // Components JSX
@@ -21,6 +21,12 @@ const Form = () => {
   const handleChange = e => {
     setInputs({ ...inputs, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (location.pathname === '/edit' && !location.state) {
+      return navigate('/');
+    }
+  }, []);
 
   return (
     <Box sx={{

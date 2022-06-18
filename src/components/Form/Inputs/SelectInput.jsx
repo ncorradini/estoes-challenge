@@ -16,10 +16,7 @@ const SelectInput = ({ title, name, handleChange, value, options }) => {
           fontSize: '16px',
           color: '#575757',
         }}>
-        {name === 'status'
-          ? <option value="default" disabled>Select status</option>
-          : <option value="default" disabled>Select a person</option>
-        }
+        <option value="default" disabled>Select</option>
         {options.map(option =>
           <option key={option}>
             {option}

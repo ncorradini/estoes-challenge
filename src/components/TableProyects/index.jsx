@@ -4,18 +4,27 @@ import { Box, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/mate
 import NotProject from './NotProject';
 import RowProject from './RowProject/RowProject';
 import RowProjectMobile from './RowProject/RowProjectMobile';
+import Searcher from '../Searcher';
 
 const TableProyects = () => {
-  const { list } = useSelector(state => state.projects);
+  const { list, termSearch } = useSelector(state => state.projects);
 
   useEffect(() => {}, [list]);
+
+  const searchingTerm = () => {
+    return function (x) {
+      return x.projectName.includes(termSearch) || !termSearch;
+    };
+  };
 
   return (
     <Box sx={{
       display: 'flex',
       flexWrap: 'wrap',
       width: '100%',
+      mb: '150px',
     }}>
+      <Searcher />
       <Table sx={{
         mx: 0,
         px: 0,
@@ -35,8 +44,8 @@ const TableProyects = () => {
           </TableRow>
         </TableHead>
         <TableBody sx={{ background: '#fff' }}>
-          {list.map(project => <RowProject key={project.id} project={project} />)}
-          {list.map(project => <RowProjectMobile key={project.id} project={project} />)}
+          {list.filter(searchingTerm()).map(project => <RowProject key={project.id} project={project} />)}
+          {list.filter(searchingTerm()).map(project => <RowProjectMobile key={project.id} project={project} />)}
         </TableBody>
       </Table>
 
