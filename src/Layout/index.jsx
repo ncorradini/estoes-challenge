@@ -10,6 +10,8 @@ const Layout = (props) => {
       <Container sx={{
         display: 'flex',
         justifyContent: 'center',
+        maxWidthXs: '100%',
+        px: 0,
       }}>
         {props.children}
       </Container>
