@@ -8,7 +8,7 @@ export const initialState = () => {
 
   const date = new Date();
   const creation = `
-  ${date.getDate()}/${date.getMonth()}/${date.getFullYear()} 
+  ${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()} 
   ${date.getHours()}:${date.getMinutes()}`;
 
   return ({
