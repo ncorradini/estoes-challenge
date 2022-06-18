@@ -6,15 +6,12 @@ import { useDispatch } from 'react-redux';
 import { setTermSearch } from '../../store/slices/projects';
 
 const Search = styled('div')(({ theme }) => ({
-  display: 'none',
+  display: 'block',
   position: 'relative',
   borderRadius: theme.shape.borderRadius,
   backgroundColor: alpha('#ffffff', 0.5),
   marginLeft: 0,
   width: '100%',
-  [theme.breakpoints.up('xs')]: {
-    display: 'block',
-  },
 }));
 
 const SearchIconWrapper = styled('div')(({ theme }) => ({
