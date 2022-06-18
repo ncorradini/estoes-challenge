@@ -1,21 +1,39 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Box, Table, TableHead, TableBody, TableCell, TableRow } from '@mui/material';
 import NotProject from './NotProject';
 import RowProject from './RowProject/RowProject';
 import RowProjectMobile from './RowProject/RowProjectMobile';
 import Searcher from '../Searcher';
+import NextPrevButtons from './NextPrevButtons';
 
 const TableProyects = () => {
   const { list, termSearch } = useSelector(state => state.projects);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  const filteredList = () => {
+    if (termSearch.length === 0) {
+      return list.slice(currentPage, currentPage + 3);
+    }
+
+    const filtered = list.filter(project => project.projectName.includes(termSearch));
+
+    return filtered.slice(currentPage, currentPage + 3);
+  };
+
+  const next = () => {
+    if (list.filter(project => project.projectName.includes(termSearch)).length > currentPage + 3) {
+      setCurrentPage(currentPage + 3);
+    }
+  };
+
+  const prev = () => {
+    if (currentPage > 0) {
+      setCurrentPage(currentPage - 3);
+    }
+  };
 
   useEffect(() => {}, [list]);
-
-  const searchingTerm = () => {
-    return function (x) {
-      return x.projectName.includes(termSearch) || !termSearch;
-    };
-  };
 
   return (
     <Box sx={{
@@ -44,12 +62,12 @@ const TableProyects = () => {
           </TableRow>
         </TableHead>
         <TableBody sx={{ background: '#fff' }}>
-          {list.filter(searchingTerm()).map(project => <RowProject key={project.id} project={project} />)}
-          {list.filter(searchingTerm()).map(project => <RowProjectMobile key={project.id} project={project} />)}
+          {filteredList().map(project => <RowProject key={project.id} project={project} />)}
+          {filteredList().map(project => <RowProjectMobile key={project.id} project={project} />)}
         </TableBody>
       </Table>
-
       {list.length <= 0 && <NotProject />}
+      <NextPrevButtons prev={prev} next={next} />
     </Box>
   );
 };
