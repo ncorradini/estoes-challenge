@@ -10,6 +10,7 @@ import NextPrevButtons from './NextPrevButtons';
 const TableProyects = () => {
   const { list, termSearch } = useSelector(state => state.projects);
   const [currentPage, setCurrentPage] = useState(0);
+  const [actuallyPage, setActuallyPage] = useState(0);
   const filtered = list.filter(project => project.projectName.includes(termSearch));
 
   const filteredList = () => {
@@ -23,16 +24,20 @@ const TableProyects = () => {
   const next = () => {
     if (filtered.length > currentPage + 3) {
       setCurrentPage(currentPage + 3);
+      setActuallyPage(actuallyPage + 1);
     }
   };
 
   const prev = () => {
     if (currentPage > 0) {
       setCurrentPage(currentPage - 3);
+      setActuallyPage(actuallyPage !== 1 ? actuallyPage - 1 : actuallyPage);
     }
   };
 
-  useEffect(() => {}, [list]);
+  useEffect(() => {
+    setActuallyPage(list.length === 0 ? 0 : 1);
+  }, [list]);
 
   return (
     <Box sx={{
@@ -66,7 +71,13 @@ const TableProyects = () => {
         </TableBody>
       </Table>
       {list.length <= 0 && <NotProject />}
-      {list.length > 3 && <NextPrevButtons prev={prev} next={next} />}
+
+      <NextPrevButtons
+        prev={prev}
+        next={next}
+        list={list}
+        actuallyPage={actuallyPage}
+      />
     </Box>
   );
 };

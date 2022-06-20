@@ -1,26 +1,40 @@
-import { Box, Button } from '@mui/material';
-import UndoIcon from '@mui/icons-material/Undo';
-import RedoIcon from '@mui/icons-material/Redo';
+import { useEffect, useState } from 'react';
+import { Box, Button, Typography } from '@mui/material';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
-const NextPrevButtons = ({ prev, next }) => {
+const NextPrevButtons = ({ prev, next, list, actuallyPage }) => {
+  const [pages, setPages] = useState(0);
+
+  useEffect(() => {
+    setPages(Math.ceil(list.length / 3));
+  }, [list]);
+
   return (
     <Box sx={{
+      mt: '30px',
       width: '100%',
       display: 'flex',
       justifyContent: 'center',
-      mt: '20px',
+      alignItems: 'center',
     }}>
       <Button onClick={prev} sx={{
-        mx: '15px',
+        mx: '5px',
         color: 'gray',
       }}>
-        <UndoIcon />
+        <NavigateBeforeIcon />
       </Button>
-      <Button onClick={next} sx={{
-        mx: '15px',
+      <Typography sx={{
+        fontSize: '12px',
         color: 'gray',
       }}>
-        <RedoIcon />
+        Page {actuallyPage} of {pages}
+      </Typography>
+      <Button onClick={next} sx={{
+        mx: '5px',
+        color: 'gray',
+      }}>
+        <NavigateNextIcon />
       </Button>
     </Box>
   );
