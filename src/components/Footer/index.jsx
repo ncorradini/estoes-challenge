@@ -17,7 +17,7 @@ const Footer = () => {
       }}>
       <Container maxWidth="md">
         <Typography sx={{ opacity: 0.5, fontSize: '11px' }}>
-          Sitio web diseñado por Nicolás Corradini © 2022
+          Web site designed by Nicolás Corradini © 2022
           <br />
           <a href="https://ncorradini.com.ar" target="_blank" rel="noreferrer">
             www.ncorradini.com.ar

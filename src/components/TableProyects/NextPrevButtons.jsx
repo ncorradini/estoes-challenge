@@ -8,6 +8,7 @@ const NextPrevButtons = ({ prev, next, list, actuallyPage }) => {
 
   useEffect(() => {
     setPages(Math.ceil(list.length / 3));
+    if (actuallyPage > Math.ceil(list.length / 3)) prev();
   }, [list]);
 
   return (
